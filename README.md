@@ -1,2 +1,3 @@
 # project1-landingpage
-landing page
+
+landing page about service various types and forms of advertising creation
