@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Maps Integration Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .map-container {
+            width: 100%;
+            height: 400px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .embed-map {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 6px;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            background: #3b82f6;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .info {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .warning {
+            background: #fef3c7;
+            border: 1px solid #f59e0b;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🗺️ Google Maps Integration Demo</h1>
+    
+    <div class="info">
+        <h3>✅ Current Status: Working!</h3>
+        <p>Your ContactUs component now includes a fully functional Google Maps integration. The embed map below shows how it will appear on your website.</p>
+    </div>
+
+    <h2>📍 Live Map Preview</h2>
+    <div class="map-container">
+        <iframe 
+            class="embed-map"
+            src="https://maps.google.com/maps?q=40.7505,-73.9934&hl=en&z=15&output=embed"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+
+    <div class="controls">
+        <button onclick="openInGoogleMaps()">🔗 Open in Google Maps</button>
+        <button onclick="getDirections()">🧭 Get Directions</button>
+        <button onclick="shareLocation()">📤 Share Location</button>
+    </div>
+
+    <h2>🚀 Features Included</h2>
+    <ul>
+        <li><strong>Embed Map</strong> - Works immediately, no API key required</li>
+        <li><strong>Interactive Controls</strong> - Zoom, pan, street view</li>
+        <li><strong>Mobile Responsive</strong> - Perfect on all devices</li>
+        <li><strong>Custom Styling</strong> - Matches your website design</li>
+        <li><strong>Multiple Map Types</strong> - Embed and interactive options</li>
+        <li><strong>Easy Customization</strong> - Change location, styling, and features</li>
+    </ul>
+
+    <h2>⚙️ How to Customize</h2>
+    <div class="warning">
+        <h4>📝 Update Your Location</h4>
+        <p>Edit <code>src/components/ContactUs.vue</code> and change:</p>
+        <pre>coordinates: {
+  lat: 40.7505, // Your latitude
+  lng: -73.9934  // Your longitude
+}</pre>
+    </div>
+
+    <h2>🔑 Optional: Interactive Maps</h2>
+    <p>For advanced features like custom markers and info windows, you can enable interactive maps:</p>
+    <ol>
+        <li>Get a Google Maps API key from <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a></li>
+        <li>Add the API key to your component</li>
+        <li>Switch to interactive mode</li>
+    </ol>
+
+    <div class="info">
+        <h4>💡 Pro Tip</h4>
+        <p>The embed map (currently active) is perfect for most use cases and doesn't require any API key or setup. It's already working on your website!</p>
+    </div>
+
+    <h2>📱 Mobile Preview</h2>
+    <p>The map automatically adapts to mobile devices with touch-friendly controls and responsive sizing.</p>
+
+    <script>
+        function openInGoogleMaps() {
+            const url = 'https://www.google.com/maps/search/?api=1&query=40.7505,-73.9934';
+            window.open(url, '_blank');
+        }
+
+        function getDirections() {
+            const url = 'https://www.google.com/maps/dir/?api=1&destination=40.7505,-73.9934';
+            window.open(url, '_blank');
+        }
+
+        function shareLocation() {
+            const url = 'https://maps.google.com/?q=40.7505,-73.9934';
+            if (navigator.share) {
+                navigator.share({
+                    title: 'AdCreative Office Location',
+                    text: 'Visit our office at this location',
+                    url: url
+                });
+            } else {
+                navigator.clipboard.writeText(url).then(() => {
+                    alert('Location URL copied to clipboard!');
+                });
+            }
+        }
+    </script>
+</body>
+</html>

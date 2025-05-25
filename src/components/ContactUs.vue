@@ -7,12 +7,12 @@
           Ready to start your next advertising project? Get in touch with us today and let's discuss how we can help your business grow.
         </p>
       </div>
-      
+
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <!-- Contact Information -->
         <div>
           <h3 class="text-2xl font-bold text-gray-900 mb-8">Get In Touch</h3>
-          
+
           <!-- Contact Details -->
           <div class="space-y-6">
             <div class="flex items-start">
@@ -27,7 +27,7 @@
                 <p class="text-gray-600">123 Creative Street<br>Design District, NY 10001<br>United States</p>
               </div>
             </div>
-            
+
             <div class="flex items-start">
               <div class="bg-primary-100 rounded-lg p-3 mr-4">
                 <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -39,7 +39,7 @@
                 <p class="text-gray-600">+1 (555) 123-4567</p>
               </div>
             </div>
-            
+
             <div class="flex items-start">
               <div class="bg-primary-100 rounded-lg p-3 mr-4">
                 <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -51,7 +51,7 @@
                 <p class="text-gray-600">hello@adcreative.com</p>
               </div>
             </div>
-            
+
             <div class="flex items-start">
               <div class="bg-primary-100 rounded-lg p-3 mr-4">
                 <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -64,10 +64,10 @@
               </div>
             </div>
           </div>
-          
+
           <!-- Quick Contact Button -->
           <div class="mt-8">
-            <button 
+            <button
               @click="contactWhatsApp"
               class="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg transition duration-300 flex items-center"
             >
@@ -78,26 +78,59 @@
             </button>
           </div>
         </div>
-        
+
         <!-- Map -->
         <div>
           <h3 class="text-2xl font-bold text-gray-900 mb-8">Find Us</h3>
-          <div class="bg-gray-200 rounded-lg h-96 flex items-center justify-center">
-            <!-- Placeholder for map - you can integrate with Google Maps or other map services -->
-            <div class="text-center text-gray-600">
-              <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-              <p class="text-lg font-semibold">Interactive Map</p>
-              <p class="text-sm">123 Creative Street, Design District, NY 10001</p>
-              <button 
-                @click="openGoogleMaps"
-                class="mt-4 bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded transition duration-300"
-              >
-                Open in Google Maps
-              </button>
+
+          <!-- Map Container -->
+          <div class="bg-gray-200 rounded-lg h-96 overflow-hidden relative">
+            <!-- Google Maps Embed -->
+            <iframe
+              v-if="mapType === 'embed'"
+              :src="googleMapsEmbedUrl"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              class="rounded-lg"
+            ></iframe>
+
+            <!-- Interactive Google Maps (requires API key) -->
+            <div
+              v-else-if="mapType === 'interactive'"
+              id="google-map"
+              class="w-full h-full rounded-lg"
+            ></div>
+
+            <!-- Fallback Map Placeholder -->
+            <div
+              v-else
+              class="w-full h-full flex items-center justify-center text-center text-gray-600"
+            >
+              <div>
+                <svg class="w-16 h-16 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+                <p class="text-lg font-semibold">Interactive Map</p>
+                <p class="text-sm mb-4">{{ businessAddress }}</p>
+                <button
+                  @click="openGoogleMaps"
+                  class="bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded transition duration-300"
+                >
+                  Open in Google Maps
+                </button>
+              </div>
             </div>
+          </div>
+
+          <!-- Map Info -->
+          <div class="mt-4 text-sm text-gray-600">
+            <p><strong>Address:</strong> {{ businessAddress }}</p>
+            <p><strong>Coordinates:</strong> {{ coordinates.lat }}, {{ coordinates.lng }}</p>
           </div>
         </div>
       </div>
@@ -108,6 +141,38 @@
 <script>
 export default {
   name: 'ContactUs',
+  data() {
+    return {
+      mapType: 'embed', // 'embed', 'interactive', or 'placeholder'
+      businessAddress: '123 Creative Street, Design District, NY 10001',
+      coordinates: {
+        lat: 40.7505, // Times Square area coordinates (more recognizable)
+        lng: -73.9934
+      },
+      googleMapsApiKey: '', // Add your Google Maps API key here for interactive maps
+    }
+  },
+  computed: {
+    googleMapsEmbedUrl() {
+      // Simple Google Maps iframe embed using coordinates (no API key required)
+      const lat = this.coordinates.lat
+      const lng = this.coordinates.lng
+      const zoom = 15
+
+      // Using Google Maps embed with coordinates
+      return `https://maps.google.com/maps?q=${lat},${lng}&hl=en&z=${zoom}&output=embed`
+    },
+    googleMapsSearchUrl() {
+      const address = encodeURIComponent(this.businessAddress)
+      return `https://www.google.com/maps/search/?api=1&query=${address}`
+    }
+  },
+  mounted() {
+    // Initialize interactive map if API key is provided and map type is interactive
+    if (this.mapType === 'interactive' && this.googleMapsApiKey) {
+      this.loadGoogleMapsScript()
+    }
+  },
   methods: {
     contactWhatsApp() {
       const message = encodeURIComponent('Hi! I would like to get more information about your advertising services.')
@@ -115,9 +180,85 @@ export default {
       window.open(whatsappUrl, '_blank')
     },
     openGoogleMaps() {
-      const address = encodeURIComponent('123 Creative Street, Design District, NY 10001')
-      const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${address}`
-      window.open(mapsUrl, '_blank')
+      window.open(this.googleMapsSearchUrl, '_blank')
+    },
+    setMapType(type) {
+      this.mapType = type
+
+      // Load interactive map if selected and API key is available
+      if (type === 'interactive' && this.googleMapsApiKey) {
+        this.$nextTick(() => {
+          this.loadGoogleMapsScript()
+        })
+      }
+    },
+    loadGoogleMapsScript() {
+      // Check if Google Maps script is already loaded
+      if (window.google && window.google.maps) {
+        this.initializeMap()
+        return
+      }
+
+      // Load Google Maps JavaScript API
+      const script = document.createElement('script')
+      script.src = `https://maps.googleapis.com/maps/api/js?key=${this.googleMapsApiKey}&callback=initMap`
+      script.async = true
+      script.defer = true
+
+      // Set up callback
+      window.initMap = () => {
+        this.initializeMap()
+      }
+
+      document.head.appendChild(script)
+    },
+    initializeMap() {
+      const mapElement = document.getElementById('google-map')
+      if (!mapElement) return
+
+      // Create map
+      const map = new window.google.maps.Map(mapElement, {
+        center: this.coordinates,
+        zoom: 15,
+        mapTypeId: 'roadmap',
+        styles: [
+          // Custom map styling (optional)
+          {
+            featureType: 'poi',
+            elementType: 'labels',
+            stylers: [{ visibility: 'off' }]
+          }
+        ]
+      })
+
+      // Add marker
+      const marker = new window.google.maps.Marker({
+        position: this.coordinates,
+        map: map,
+        title: 'AdCreative Office',
+        animation: window.google.maps.Animation.DROP
+      })
+
+      // Add info window
+      const infoWindow = new window.google.maps.InfoWindow({
+        content: `
+          <div style="padding: 10px; max-width: 200px;">
+            <h3 style="margin: 0 0 8px 0; color: #1f2937;">AdCreative</h3>
+            <p style="margin: 0 0 8px 0; color: #6b7280; font-size: 14px;">${this.businessAddress}</p>
+            <a href="${this.googleMapsSearchUrl}" target="_blank" style="color: #3b82f6; text-decoration: none; font-size: 14px;">
+              Get Directions →
+            </a>
+          </div>
+        `
+      })
+
+      // Show info window when marker is clicked
+      marker.addListener('click', () => {
+        infoWindow.open(map, marker)
+      })
+
+      // Auto-open info window
+      infoWindow.open(map, marker)
     }
   }
 }

@@ -7,16 +7,22 @@
           Take a look at some of our recent work and see how we've helped businesses achieve their advertising goals.
         </p>
       </div>
-      
+
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <!-- Project 1 -->
         <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
-          <div class="h-64 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
-            <div class="text-center text-white">
-              <svg class="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"></path>
-              </svg>
-              <p class="text-lg font-semibold">Digital Campaign</p>
+          <div class="h-64 relative overflow-hidden">
+            <img
+              :src="projects[0].image"
+              :alt="projects[0].title"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              @error="handleImageError($event, 0)"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-10 transition-all duration-300"></div>
+            <div class="absolute bottom-4 left-4 text-white">
+              <span class="bg-black bg-opacity-50 px-3 py-1 rounded-full text-sm font-semibold">
+                {{ projects[0].category }}
+              </span>
             </div>
           </div>
           <div class="p-6">
@@ -28,15 +34,21 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Project 2 -->
         <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
-          <div class="h-64 bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center">
-            <div class="text-center text-white">
-              <svg class="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M4 2a2 2 0 00-2 2v11a3 3 0 106 0V4a2 2 0 00-2-2H4zm1 14a1 1 0 100-2 1 1 0 000 2zm5-1.757l4.9-4.9a2 2 0 000-2.828L13.485 5.1a2 2 0 00-2.828 0L10 5.757v8.486zM16 18H9.071l6-6H16a2 2 0 012 2v2a2 2 0 01-2 2z" clip-rule="evenodd"></path>
-              </svg>
-              <p class="text-lg font-semibold">Print Design</p>
+          <div class="h-64 relative overflow-hidden">
+            <img
+              :src="projects[1].image"
+              :alt="projects[1].title"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              @error="handleImageError($event, 1)"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-10 transition-all duration-300"></div>
+            <div class="absolute bottom-4 left-4 text-white">
+              <span class="bg-black bg-opacity-50 px-3 py-1 rounded-full text-sm font-semibold">
+                {{ projects[1].category }}
+              </span>
             </div>
           </div>
           <div class="p-6">
@@ -48,15 +60,21 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Project 3 -->
         <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
-          <div class="h-64 bg-gradient-to-br from-purple-400 to-purple-600 flex items-center justify-center">
-            <div class="text-center text-white">
-              <svg class="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"></path>
-              </svg>
-              <p class="text-lg font-semibold">Video Production</p>
+          <div class="h-64 relative overflow-hidden">
+            <img
+              :src="projects[2].image"
+              :alt="projects[2].title"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              @error="handleImageError($event, 2)"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-10 transition-all duration-300"></div>
+            <div class="absolute bottom-4 left-4 text-white">
+              <span class="bg-black bg-opacity-50 px-3 py-1 rounded-full text-sm font-semibold">
+                {{ projects[2].category }}
+              </span>
             </div>
           </div>
           <div class="p-6">
@@ -68,15 +86,21 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Project 4 -->
         <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
-          <div class="h-64 bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center">
-            <div class="text-center text-white">
-              <svg class="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-              </svg>
-              <p class="text-lg font-semibold">Social Media</p>
+          <div class="h-64 relative overflow-hidden">
+            <img
+              :src="projects[3].image"
+              :alt="projects[3].title"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              @error="handleImageError($event, 3)"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-10 transition-all duration-300"></div>
+            <div class="absolute bottom-4 left-4 text-white">
+              <span class="bg-black bg-opacity-50 px-3 py-1 rounded-full text-sm font-semibold">
+                {{ projects[3].category }}
+              </span>
             </div>
           </div>
           <div class="p-6">
@@ -88,15 +112,21 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Project 5 -->
         <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
-          <div class="h-64 bg-gradient-to-br from-yellow-400 to-yellow-600 flex items-center justify-center">
-            <div class="text-center text-white">
-              <svg class="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 4a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
-              </svg>
-              <p class="text-lg font-semibold">Content Strategy</p>
+          <div class="h-64 relative overflow-hidden">
+            <img
+              :src="projects[4].image"
+              :alt="projects[4].title"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              @error="handleImageError($event, 4)"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-10 transition-all duration-300"></div>
+            <div class="absolute bottom-4 left-4 text-white">
+              <span class="bg-black bg-opacity-50 px-3 py-1 rounded-full text-sm font-semibold">
+                {{ projects[4].category }}
+              </span>
             </div>
           </div>
           <div class="p-6">
@@ -108,15 +138,21 @@
             </div>
           </div>
         </div>
-        
+
         <!-- Project 6 -->
         <div class="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
-          <div class="h-64 bg-gradient-to-br from-indigo-400 to-indigo-600 flex items-center justify-center">
-            <div class="text-center text-white">
-              <svg class="w-16 h-16 mx-auto mb-4" fill="currentColor" viewBox="0 0 20 20">
-                <path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.214.33-.403.713-.57 1.116-.334.804-.614 1.768-.84 2.734a31.365 31.365 0 00-.613 3.58 2.64 2.64 0 01-.945-1.067c-.328-.68-.398-1.534-.398-2.654A1 1 0 005.05 6.05 6.981 6.981 0 003 11a7 7 0 1011.95-4.95c-.592-.591-.98-.985-1.348-1.467-.363-.476-.724-1.063-1.207-2.03zM12.12 15.12A3 3 0 017 13s.879.5 2.5.5c0-1 .5-4 1.25-4.5.5 1 .786 1.293 1.371 1.879A2.99 2.99 0 0113 13a2.99 2.99 0 01-.879 2.121z" clip-rule="evenodd"></path>
-              </svg>
-              <p class="text-lg font-semibold">Brand Identity</p>
+          <div class="h-64 relative overflow-hidden">
+            <img
+              :src="projects[5].image"
+              :alt="projects[5].title"
+              class="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              @error="handleImageError($event, 5)"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-20 hover:bg-opacity-10 transition-all duration-300"></div>
+            <div class="absolute bottom-4 left-4 text-white">
+              <span class="bg-black bg-opacity-50 px-3 py-1 rounded-full text-sm font-semibold">
+                {{ projects[5].category }}
+              </span>
             </div>
           </div>
           <div class="p-6">
@@ -135,6 +171,60 @@
 
 <script>
 export default {
-  name: 'Projects'
+  name: 'Projects',
+  data() {
+    return {
+      projects: [
+        {
+          id: 1,
+          title: 'Tech Startup Branding',
+          category: 'Digital Campaign',
+          image: '/images/project1.jpg',
+          fallbackImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=256&q=80'
+        },
+        {
+          id: 2,
+          title: 'Restaurant Menu Design',
+          category: 'Print Design',
+          image: '/images/project2.jpg',
+          fallbackImage: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=256&q=80'
+        },
+        {
+          id: 3,
+          title: 'Corporate Video Series',
+          category: 'Video Production',
+          image: '/images/project3.jpg',
+          fallbackImage: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=256&q=80'
+        },
+        {
+          id: 4,
+          title: 'Social Media Campaign',
+          category: 'Social Media',
+          image: '/images/project4.jpg',
+          fallbackImage: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=256&q=80'
+        },
+        {
+          id: 5,
+          title: 'Content Marketing Plan',
+          category: 'Content Strategy',
+          image: '/images/project5.jpg',
+          fallbackImage: 'https://images.unsplash.com/photo-1552664730-d307ca884978?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=256&q=80'
+        },
+        {
+          id: 6,
+          title: 'Healthcare Rebrand',
+          category: 'Brand Identity',
+          image: '/images/project6.jpg',
+          fallbackImage: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&h=256&q=80'
+        }
+      ]
+    }
+  },
+  methods: {
+    handleImageError(event, index) {
+      // If the local image fails to load, use the fallback image
+      event.target.src = this.projects[index].fallbackImage
+    }
+  }
 }
 </script>
