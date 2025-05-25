@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .favicon-preview {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .favicon-item {
+            text-align: center;
+            padding: 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        canvas {
+            border: 1px solid #ccc;
+            margin: 10px 0;
+        }
+        button {
+            background: #3B82F6;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .info {
+            background: #f0f9ff;
+            border: 1px solid #0ea5e9;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .current-favicon {
+            width: 32px;
+            height: 32px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 Favicon Generator for AdCreative</h1>
+    
+    <div class="info">
+        <h3>✅ Current Status</h3>
+        <p>Your website now uses a custom SVG logo as favicon: 
+        <img src="/images/logo.svg" alt="Current favicon" class="current-favicon">
+        The SVG favicon will display in modern browsers!</p>
+    </div>
+
+    <h2>📱 Favicon Preview</h2>
+    <div class="favicon-preview">
+        <div class="favicon-item">
+            <h4>16x16 (Browser Tab)</h4>
+            <canvas id="favicon16" width="16" height="16"></canvas>
+            <br>
+            <button onclick="downloadFavicon('favicon16', 'favicon-16x16.png')">Download PNG</button>
+        </div>
+        
+        <div class="favicon-item">
+            <h4>32x32 (Standard)</h4>
+            <canvas id="favicon32" width="32" height="32"></canvas>
+            <br>
+            <button onclick="downloadFavicon('favicon32', 'favicon-32x32.png')">Download PNG</button>
+        </div>
+        
+        <div class="favicon-item">
+            <h4>180x180 (Apple Touch)</h4>
+            <canvas id="favicon180" width="180" height="180"></canvas>
+            <br>
+            <button onclick="downloadFavicon('favicon180', 'apple-touch-icon.png')">Download PNG</button>
+        </div>
+    </div>
+
+    <h2>🔧 How to Use</h2>
+    <ol>
+        <li><strong>Current Setup:</strong> Your site already uses the SVG logo as favicon</li>
+        <li><strong>Optional:</strong> Download PNG versions above for better compatibility</li>
+        <li><strong>Save:</strong> Place downloaded files in the <code>public/</code> folder</li>
+        <li><strong>Deploy:</strong> Your favicon will appear in browser tabs!</li>
+    </ol>
+
+    <div class="info">
+        <h4>💡 Pro Tips</h4>
+        <ul>
+            <li>SVG favicons work in modern browsers (Chrome, Firefox, Safari)</li>
+            <li>PNG fallbacks ensure compatibility with older browsers</li>
+            <li>The favicon will appear after you deploy your changes</li>
+            <li>Clear browser cache to see favicon updates immediately</li>
+        </ul>
+    </div>
+
+    <h2>🎨 Current Logo Design</h2>
+    <div style="text-align: center; margin: 20px 0;">
+        <img src="/images/logo.svg" alt="AdCreative Logo" style="width: 128px; height: 128px; border: 2px solid #ddd; border-radius: 8px; padding: 10px; background: white;">
+        <p>Your custom AdCreative logo (SVG format)</p>
+    </div>
+
+    <script>
+        // Generate favicon canvases
+        function generateFavicon(canvasId, size) {
+            const canvas = document.getElementById(canvasId);
+            const ctx = canvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, size, size);
+            
+            // Background circle
+            const centerX = size / 2;
+            const centerY = size / 2;
+            const radius = size * 0.4;
+            
+            // Draw background circle
+            ctx.fillStyle = '#3B82F6';
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+            ctx.fill();
+            
+            // Draw border
+            ctx.strokeStyle = '#1D4ED8';
+            ctx.lineWidth = size * 0.05;
+            ctx.stroke();
+            
+            // Draw "A" letter
+            ctx.fillStyle = 'white';
+            ctx.font = `bold ${size * 0.5}px Arial`;
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('A', centerX, centerY);
+            
+            // Draw small accent dot
+            if (size >= 32) {
+                ctx.fillStyle = '#F59E0B';
+                ctx.beginPath();
+                ctx.arc(centerX + radius * 0.6, centerY - radius * 0.6, size * 0.08, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+        
+        function downloadFavicon(canvasId, filename) {
+            const canvas = document.getElementById(canvasId);
+            const link = document.createElement('a');
+            link.download = filename;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        }
+        
+        // Generate all favicons on page load
+        window.onload = function() {
+            generateFavicon('favicon16', 16);
+            generateFavicon('favicon32', 32);
+            generateFavicon('favicon180', 180);
+        };
+    </script>
+</body>
+</html>
